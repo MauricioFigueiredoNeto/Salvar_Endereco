@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans  
+		  http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		  http://www.springframework.org/schema/context
+		  http://www.springframework.org/schema/context/spring-context.xsd
+		  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<context:annotation-config />
+
+	<!-- Beans -->
+    <bean id="cepService" class="br.com.netshoes.question2.service.cep.CEPServiceImpl"/>
+    <bean id="cepDao" class="br.com.netshoes.question2.dao.cep.CEPDAOImpl">
+		<constructor-arg ref="enderecosMap" />
+    </bean>
+    <bean id="enderecoDAO" class="br.com.netshoes.question2.dao.endereco.InMemoryEnderecoDAOImpl"/>
+    <bean id="enderecoService" class="br.com.netshoes.question2.service.endereco.EnderecoServiceImpl"/>
+    
+    <!-- Mock cep e endereços -->
+    <util:map id="enderecosMap">
+    	<entry key="22333999" value-ref="endereco1" />
+    	<entry key="22333000" value-ref="endereco2" />
+    </util:map>
+    
+    <bean id="endereco1" class="br.com.netshoes.question2.entity.endereco.EnderecoEntity">
+    	<property name="CEP" value="22333999"/>
+    	<property name="rua" value="Paulista"/>
+    	<property name="bairro" value="Cerqueira Cesar"/>
+    	<property name="cidade" value="São Paulo"/>
+    	<property name="estado" value="SP"/>
+    </bean>
+
+    <bean id="endereco2" class="br.com.netshoes.question2.entity.endereco.EnderecoEntity">
+    	<property name="CEP" value="22333000"/>
+    	<property name="rua" value="Bento Gonçalves"/>
+    	<property name="bairro" value="Jardim"/>
+    	<property name="cidade" value="Porto Alegre"/>
+    	<property name="estado" value="RS"/>
+    </bean>
+        
+</beans>
